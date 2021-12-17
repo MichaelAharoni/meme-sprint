@@ -8,6 +8,7 @@ function onInit() {
     gCanvas = document.querySelector('#my-canvas');
     gCtx = gCanvas.getContext('2d');
     renderGallery();
+    loadImgs();
     document.querySelector('#my-canvas');
 }
 
@@ -52,6 +53,14 @@ function renderImg() {
         gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height);
         drawRect();
     };
+}
+function loadImgs() {
+    var imgs = getImgs();
+    var elHelper = document.querySelector('.sizing');
+    imgs.forEach(function (img) {
+        elHelper.innerHTML = `<img src="${img.url}">`
+    })
+    elHelper.innerHTML = '';
 }
 
 function setInputTxt() {
