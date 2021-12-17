@@ -9,6 +9,7 @@ function onInit() {
     gCtx = gCanvas.getContext('2d');
     renderGallery();
     loadImgs();
+    uploadImg();
     document.querySelector('#my-canvas');
 }
 
@@ -83,6 +84,7 @@ function toggleShareNav() {
         updateGlineIdx();
         pureCanvas();
         renderMeme();
+        uploadImg();
     }
     else if (!gToggleShare) {
         updateMemeIdx();
@@ -95,10 +97,12 @@ function toggleShareNav() {
 }
 
 function toggleHeaderNav() {
-    document.querySelector('.nav').classList.toggle('show');
-    document.querySelector('.gallery-nav').classList.toggle('show');
-    document.querySelector('.about-nav').classList.toggle('show');
-    document.querySelector('.main-screen-header').classList.toggle('menu-open');
+    if (window.innerWidth <= 780) {
+        document.querySelector('.nav').classList.toggle('show');
+        document.querySelector('.gallery-nav').classList.toggle('show');
+        document.querySelector('.about-nav').classList.toggle('show');
+        document.querySelector('.main-screen-header').classList.toggle('menu-open');
+    }
 }
 
 function pureCanvas() {
@@ -116,3 +120,30 @@ function downloadImg(elLink) {
     saveImg();
     toggleShareNav();
 }
+
+function uploadImg() {
+    const imgDataUrl = gCanvas.toDataURL();
+      function onSuccess(uploadedImgUrl) {
+      const encodedUploadedImgUrl = encodeURIComponent(uploadedImgUrl);
+      document.querySelector('.do-share').innerHTML = `<a class="btn fb-share" href="https://www.facebook.com/sharer/sharer.php?u=${encodedUploadedImgUrl}&t=${encodedUploadedImgUrl}" title="Share on Facebook" target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}'); return false;">Share On FaceBook!</a>`;
+    }
+    doUploadImg(imgDataUrl, onSuccess);
+  }
+
+
+function doUploadImg(imgDataUrl, onSuccess) {
+    const formData = new FormData();
+    formData.append('img', imgDataUrl);
+    fetch('//ca-upload.com/here/upload.php', {
+      method: 'POST',
+      body: formData,
+    })
+      .then((res) => res.text())
+      .then((url) => {
+        console.log('Got back live url:', url);
+        onSuccess(url);
+      })
+      .catch((err) => {
+      });
+  }
+  

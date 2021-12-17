@@ -18,3 +18,4 @@ function saveImg() {
     canvases.push(elCanvas);
     saveToStorage('canvasesDB', canvases);
 }
+

@@ -19,6 +19,8 @@
                     <img class="img-logo" src="imgs/logo/logo.png" alt="">
                 </div>
                 <nav class="nav">
+                    <div class="my-meme" onclick="toggleGallery(this)">MyMeme</div>
+                    <hr>
                     <div class="gallery-nav active-nav" onclick="toggleGallery(this)">Gallery</div>
                     <hr>
                     <div class="about-nav"><a href="#my" onclick="toggleHeaderNav()">About</a></div>
@@ -38,25 +40,27 @@
                     <option value="animal">Cat, Dog, Animal, Animals, Pet, Pets, Cute</option>
                     <option value="baby">kid, small, people</option>
                     <option value="cute">Cat, Dog, Animal, Cute</option>
-                    <option value="movies">Cat, Dog, Animal, Animals, Pet, Pets, Cute</option>
-                    <option value="you">Cat, Dog, Animal, Animals, Pet, Pets, Cute</option>
+                    <option value="movies">Celeb</option>
+                    <option value="you">Person</option>
                 </datalist>
                 <button class="input-btn search-btn">
                     <img class="icon-img" src="imgs/sergei/icons/search-icon.png">
                 </button>
             </div>
             <div class="lines-container">
-                <span class="search-line i1" onclick="boostSize(this, true)">funny</span>
-                <span class="search-line i2" onclick="boostSize(this ,true)">funny</span>
-                <span class="search-line i3" onclick="boostSize(this ,true)">funny</span>
-                <span class="search-line i4" onclick="boostSize(this ,true)">funny</span>
-                <span class="search-line toggleInput hide i5" onclick="boostSize(this ,true)">funny</span>
-                <span class="search-line toggleInput hide i6" onclick="boostSize(this ,true)">funny</span>
-                <span class="search-line toggleInput hide i7" onclick="boostSize(this ,true)">funny</span>
-                <span class="search-line toggleInput hide i8" onclick="boostSize(this ,true)">funny</span>
-                <span class="search-line toggleInput hide i9" onclick="boostSize(this, true)">funny</span>
-                <span class="search-line toggleInput hide i10" onclick="boostSize(this, true)">funny</span>
                 <button class="more" onclick="showMoreKeys()">more...</button>
+                <div class="innner-container">
+                    <span class="search-line i1" onclick="boostSize(this, true)">funny</span>
+                    <span class="search-line i2" onclick="boostSize(this ,true)">funny</span>
+                    <span class="search-line i3" onclick="boostSize(this ,true)">funny</span>
+                    <span class="search-line i4" onclick="boostSize(this ,true)">funny</span>
+                    <span class="search-line toggleInput hide i5" onclick="boostSize(this ,true)">funny</span>
+                    <span class="search-line toggleInput hide i6" onclick="boostSize(this ,true)">funny</span>
+                    <span class="search-line toggleInput hide i7" onclick="boostSize(this ,true)">funny</span>
+                    <span class="search-line toggleInput hide i8" onclick="boostSize(this ,true)">funny</span>
+                    <span class="search-line toggleInput hide i9" onclick="boostSize(this, true)">funny</span>
+                    <span class="search-line toggleInput hide i10" onclick="boostSize(this, true)">funny</span>
+                </div>
             </div>
         </div>
     </section>
@@ -116,6 +120,7 @@
                     <option value="impact">Impact</option>
                     <option value="ariel">Ariel</option>
                     <option value="montserrat">Montserrat</option>
+                    <option value="fa">Font Awosome</option>
                 </select>
             </section>
         </div>
@@ -129,8 +134,8 @@
     </div>
 
     <nav class="share-nav hide">
-        <a class="download" href="#" download="my-canvas" onclick="downloadImg(this)">Download !</a>
-        <button class="do-share" onclick="shareMeme()">Share on FB !</button>
+        <a class="download" href="#" download="my-canvas" onclick="downloadImg(this)"><span>Download!</span></a>
+        <button class="do-share"></button>
     </nav>
 
     <section id="my" class="my-info-container">

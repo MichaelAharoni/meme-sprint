@@ -232,7 +232,10 @@ header section {
 
 header section nav {
     display: flex;
+    position: relative;
+    right:14vw;
     height: inherit;
+    width: inherit;
     justify-content: space-between;
     align-items: center;
     width: 14vw;
@@ -244,6 +247,34 @@ header nav >* {
     display: flex;
     align-items: center;
     cursor: pointer;
+}
+
+.share {
+    margin-top: 6px;
+    font-size: 5vw;
+}
+.share-nav {
+    height: 200px;
+    width: 200px;
+}
+.share-nav>* {
+    font-family: fa;
+    text-decoration: none;
+    padding: 20px;
+}
+
+.fb-share {
+    text-decoration: none;
+    color: #fff;
+}
+
+.download {
+    text-align: center;
+}
+
+.download span {
+    position: relative;
+    top: 40%;
 }
 
 header .active-nav {
@@ -301,6 +332,7 @@ nav hr {
 }
 
 .more {
+    order: 1;
     font-size: 1vw;
     color: gray;
     margin-inline-end: 2vw;
@@ -425,13 +457,16 @@ text-align: center;
     display: none;
 }
 
+input::-webkit-calendar-picker-indicator {
+    display: none !important;
+  }
+
 .lines-container {
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    flex-wrap: wrap;
-    width: 500px;
-    
+    flex-direction: row;
+    max-width: 500px;
 }
 
 .my-img {
@@ -647,6 +682,11 @@ cursor: pointer;
     .share-nav>* {
         height: inherit;
         width: inherit;
+        font-size: 3vw;
+    }
+    .download span {
+        position: relative;
+        top: 40%;
     }
     .nav>.show {
         opacity: 1;
