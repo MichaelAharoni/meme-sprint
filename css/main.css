@@ -286,11 +286,13 @@ header .active-nav {
 header .hover-nav {
     color: #040a2c;
     box-shadow: inset 0px -2px #000000;
+    transition: 0.5s;
     height: 100px;
 }
 
 header .nav a:hover {
     color: #040a2c;
+    transition: 0.5s;
 }
 
 
@@ -598,6 +600,7 @@ cursor: pointer;
 
 .main-screen {
     height: 100%;
+    transition: 0.5s;
     width: 100%;
     background-color: rgba(65, 43, 3, 0.397);
     position: fixed;
@@ -606,6 +609,7 @@ cursor: pointer;
 }
 .menu-open {
     pointer-events: auto;
+    transition: 0.5s;
     opacity: 1;
     z-index: 1;
 }
@@ -707,6 +711,7 @@ cursor: pointer;
         top: 40%;
     }
     .nav>.show {
+        transition: 0.5s;
         opacity: 1;
         position: fixed;
         z-index: 10;
