@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meme Generator By Michael Aharoni</title>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body onload="onInit()">
+    <main class="main-screen" onclick="toggleShareNav()"></main>
+    <header>
+        <div class="layout">
+            <section>
+                <div class="logo">
+                    <img class="img-logo" src="imgs/logo/logo.png" alt="">
+                </div>
+                <nav class="nav">
+                    <div class="gallery-nav active-nav" onclick="toggleGallery(this)">Gallery</div>
+                    <hr>
+                    <div class="about-nav"><a href="#my">About</a></div>
+                    <button class="far hamburger"></button>
+                </nav>
+            </section>
+        </div>
+    </header>
+
+    <section class="search-container">
+        <div class="layout">
+            <div class="search">
+                <input list="keys" onchange="renderGallery(this.value)" placeholder="Enter search Keyword"
+                    class="search-input">
+                <datalist id="keys">
+                    <option value="funny"></option>
+                    <option value="animal">Cat, Dog, Animal, Animals, Pet, Pets, Cute</option>
+                    <option value="baby">kid, small, people</option>
+                    <option value="cute">Cat, Dog, Animal, Cute</option>
+                    <option value="movies">Cat, Dog, Animal, Animals, Pet, Pets, Cute</option>
+                    <option value="you">Cat, Dog, Animal, Animals, Pet, Pets, Cute</option>
+                </datalist>
+                <button class="input-btn search-btn">
+                    <img class="icon-img" src="imgs/sergei/icons/search-icon.png">
+                </button>
+            </div>
+            <div class="lines-container">
+                <span class="search-line i1" onclick="boostSize(this, true)">funny</span>
+                <span class="search-line i2" onclick="boostSize(this ,true)">funny</span>
+                <span class="search-line i3" onclick="boostSize(this ,true)">funny</span>
+                <span class="search-line i4" onclick="boostSize(this ,true)">funny</span>
+                <span class="search-line toggleInput hide i5" onclick="boostSize(this ,true)">funny</span>
+                <span class="search-line toggleInput hide i6" onclick="boostSize(this ,true)">funny</span>
+                <span class="search-line toggleInput hide i7" onclick="boostSize(this ,true)">funny</span>
+                <span class="search-line toggleInput hide i8" onclick="boostSize(this ,true)">funny</span>
+                <span class="search-line toggleInput hide i9" onclick="boostSize(this, true)">funny</span>
+                <span class="search-line toggleInput hide i10" onclick="boostSize(this, true)">funny</span>
+                <button class="more" onclick="showMoreKeys()">more...</button>
+            </div>
+        </div>
+    </section>
+
+    <div class="sizing"></div>
+    <main class="meme-editor-container hide">
+        <div class="layout editor">
+            <div class="sizing2"></div>
+            <canvas id="my-canvas"></canvas>
+            <section class="btns-container">
+                <input oninput="getText(this.value)" type="text" placeholder="Your text Going Here..." id="txt-input">
+                <button class="input-btn color">
+                    <input type="color" oninput="setColor(this.value)" class="icon-input">
+                    <img class="icon-img" src="imgs/sergei/icons/paint-board-and-brush.png">
+                </button>
+                <button class="input-btn stroke-color">
+                    <input type="color" oninput="setStroke(this.value)" class="icon-input">
+                    <img class="icon-img" src="imgs/sergei/icons/text stroke.png">
+                </button>
+                <button class="input-btn trash" onclick="trash()">
+                    <img class="icon-img" src="imgs/sergei/icons/trash.png">
+                </button>
+                <button class="input-btn switch" onclick="switchLine()">
+                    <img class="icon-img" src="imgs/sergei/icons/up-and-down-opposite-double-arrows-side-by-side.png">
+                </button>
+                <button class="input-btn align-left" onclick="setAlign('left')">
+                    <img class="icon-img" src="imgs/sergei/icons/align-to-right.png">
+                </button>
+                <button class="input-btn align-center" onclick="setAlign('center')">
+                    <img class="icon-img" src="imgs/sergei/icons/center-text-alignment.png">
+                </button>
+                <button class="input-btn decrease" onclick="setFontSize(-5)">
+                    <img class="icon-img" src="imgs/sergei/icons/decrease font - icon.png">
+                </button>
+                <button class="input-btn increase" onclick="setFontSize(+5)">
+                    <img class="icon-img" src="imgs/sergei/icons/increase font - icon.png">
+                </button>
+                <button class="input-btn add" onclick="addLine()">
+                    <img class="icon-img" src="imgs/sergei/icons/add.png">
+                </button>
+                <button class="input-btn align-right" onclick="setAlign('right')">
+                    <img class="icon-img" src="imgs/sergei/icons/align-to-left.png">
+                </button>
+                <button class="input-btn arrow-right" onclick="changeX('+5')">
+                    <img class="icon-img" src="imgs/sergei/icons/arrow.png">
+                </button>
+                <button class="input-btn arrow-left" onclick="changeX('-5')">
+                    <img class="icon-img" src="imgs/sergei/icons/arrow.png">
+                </button>
+                <button class="input-btn arrow-bottom" onclick="changeY('+5')">
+                    <img class="icon-img" src="imgs/sergei/icons/arrow.png">
+                </button>
+                <button class="input-btn arrow-top" onclick="changeY('-5')">
+                    <img class="icon-img" src="imgs/sergei/icons/arrow.png">
+                </button>
+                <button class="far share input-btn" onclick="toggleShareNav()"></button>
+                <select name="fonts" id="fonts" onchange="setFont(this.value)">
+                    <option value="impact">Impact</option>
+                    <option value="ariel">Ariel</option>
+                    <option value="montserrat">Montserrat</option>
+                </select>
+            </section>
+        </div>
+    </main>
+    </div>
+
+    <div class="imgs-layout">
+        <div class="layout">
+            <section class="imgs-container"></section>
+        </div>
+    </div>
+
+    <nav class="share-nav hide">
+        <a class="download" href="#" download="my-canvas" onclick="downloadImg(this)">Download !</a>
+        <button class="do-share" onclick="shareMeme()">Share on FB !</button>
+    </nav>
+
+    <section id="my" class="my-info-container">
+        <div class="layout">
+            <img class="my-img" src="imgs/michael.jpg">
+            <div class="my-info">
+                <h2>Michael Aharoni</h2>
+                <p>My name is Michael Aharoni, I'm 25 years old. I've gote engaged few months ago. have a desire to
+                    explore and learn.</p>
+                <div class="list-container">
+                    <ul>
+                        <li><a target="_blank" href="https://www.facebook.com/profile.php?id=100004783625959"
+                                class="fa facebook"></a></li>
+                        <li><a target="_blank" href="https://instagram.com/bandana_dog_?utm_medium=copy_link"
+                                class="fa instegram"></a></li>
+                        <li><a target="_blank" href="https://michaelaharoni.github.io/portfolio/" class="fa git"></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="logo"><img class="img-logo" src="imgs/logo/logo.png" alt=""></div>
+        <small>&#169; All right deserve to Michael Aharoni <a target="_blank"
+                href="https://michaelaharoni.github.io/portfolio/">
+                <hr>michaelaharoni.github.io/portfolio
+            </a></small>
+    </footer>
+    <script src="js/storage-service.js"></script>
+    <script src="js/meme-service.js"></script>
+    <script src="js/gallery-contoller.js"></script>
+    <script src="js/search-controller.js"></script>
+    <script src="js/meme-controller.js"></script>
+</body>
+
+</html>
