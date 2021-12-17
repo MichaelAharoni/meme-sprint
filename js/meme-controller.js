@@ -21,6 +21,7 @@ function getCanvas() {
     return gCanvas;
 }
 
+
 function getLinesFirstPos() {
     return { x: gCanvas.width / 2, y: gCanvas.height / 5 };
 }
@@ -91,6 +92,13 @@ function toggleShareNav() {
     gToggleShare = !gToggleShare;
     document.querySelector('.share-nav').classList.toggle('hide');
     document.querySelector('.main-screen').classList.toggle('menu-open');
+}
+
+function toggleHeaderNav() {
+    document.querySelector('.nav').classList.toggle('show');
+    document.querySelector('.gallery-nav').classList.toggle('show');
+    document.querySelector('.about-nav').classList.toggle('show');
+    document.querySelector('.main-screen-header').classList.toggle('menu-open');
 }
 
 function pureCanvas() {

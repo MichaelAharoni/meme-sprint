@@ -11,6 +11,7 @@
 
 <body onload="onInit()">
     <main class="main-screen" onclick="toggleShareNav()"></main>
+    <main class="main-screen main-screen-header" onclick="toggleHeaderNav()"></main>
     <header>
         <div class="layout">
             <section>
@@ -20,8 +21,8 @@
                 <nav class="nav">
                     <div class="gallery-nav active-nav" onclick="toggleGallery(this)">Gallery</div>
                     <hr>
-                    <div class="about-nav"><a href="#my">About</a></div>
-                    <button class="far hamburger"></button>
+                    <div class="about-nav"><a href="#my" onclick="toggleHeaderNav()">About</a></div>
+                    <button class="far hamburger" onclick="toggleHeaderNav()"></button>
                 </nav>
             </section>
         </div>

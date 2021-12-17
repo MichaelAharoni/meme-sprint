@@ -21,6 +21,7 @@ function toggleGallery(elment) {
     document.querySelector('.meme-editor-container').classList.add('hide');
     document.querySelector('.search-container').classList.remove('hide');
     renderGallery();
+    toggleHeaderNav()
 }
 function setCanvasSize(id) {
     var elDiv = document.querySelector('.sizing2');
