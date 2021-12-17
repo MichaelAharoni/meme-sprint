@@ -9,7 +9,7 @@ function renderGallery(keyword) {
     if (keyword) {
         strHTML = ``;
         for (let i = 1; i <= imgs.length; i++) {
-            if (imgs[i-1].keywords.includes(keyword)) strHTML += `<div class="gallery-imgs img${i}"onclick="setImg(${i})" data-img="${i}"><img src="./imgs/meme-imgs (square)/${i}.jpg"></div>`;
+            if (imgs[i - 1].keywords.includes(keyword)) strHTML += `<div class="gallery-imgs img${i}"onclick="setImg(${i})" data-img="${i}"><img src="./imgs/meme-imgs (square)/${i}.jpg"></div>`;
         }
     }
     document.querySelector('.imgs-container').innerHTML = strHTML;
@@ -17,6 +17,7 @@ function renderGallery(keyword) {
 
 function toggleGallery(elment) {
     elment.classList.add('active-nav');
+    document.querySelector('.my-meme').classList.remove('active-nav');
     document.querySelector('.imgs-layout').classList.remove('hide');
     document.querySelector('.meme-editor-container').classList.add('hide');
     document.querySelector('.search-container').classList.remove('hide');
@@ -35,4 +36,17 @@ function setCanvasSize(id) {
         renderEditor();
         setMemeLinesPos();
     }, 50)
+}
+
+function renderMyMeme(element) {
+    toggleHeaderNav();
+    element.classList.add('active-nav');
+    document.querySelector('.gallery-nav').classList.remove('active-nav');
+    var myMemes = loadFromStorage('imgsDB');
+    var strHTML = ``;
+    if (!myMemes) return document.querySelector('.imgs-container').innerHTML = strHTML;
+    for (var i = 0; i < myMemes.length; i++) {
+        strHTML += `<div class="gallery-imgs img${i}"onclick="setImg(${myMemes[i].imgIdx},${i})"><img src="${myMemes[i].img}"}"></div>`;
+    }
+    document.querySelector('.imgs-container').innerHTML = strHTML;
 }

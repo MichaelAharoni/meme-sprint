@@ -1,19 +1,20 @@
 'use strict'
-var gImgs = [{ id: 1, url: './imgs/meme-imgs-canvas/1.jpg', keywords: ['funny', 'celeb'] },
-{ id: 2, url: './imgs/meme-imgs-canvas/2.jpg', keywords: ['dogs', 'cute', 'animals'] },
-{ id: 3, url: './imgs/meme-imgs-canvas/3.jpg', keywords: ['baby', 'dogs','animals'] },
-{ id: 4, url: './imgs/meme-imgs-canvas/4.jpg', keywords: ['funny', 'cat','animals'] },
-{ id: 5, url: './imgs/meme-imgs-canvas/5.jpg', keywords: ['baby', 'funny'] },
-{ id: 6, url: './imgs/meme-imgs-canvas/6.jpg', keywords: ['celeb', 'funny','movies'] },
-{ id: 7, url: './imgs/meme-imgs-canvas/7.jpg', keywords: ['baby', 'funny'] },
-{ id: 8, url: './imgs/meme-imgs-canvas/8.jpg', keywords: ['love'] },
-{ id: 9, url: './imgs/meme-imgs-canvas/9.jpg', keywords: ['baby', 'funny'] },
-{ id: 10, url: './imgs/meme-imgs-canvas/10.jpg', keywords: ['celeb', 'funny'] },
-{ id: 11, url: './imgs/meme-imgs-canvas/11.jpg', keywords: ['sport', 'funny'] },
-{ id: 12, url: './imgs/meme-imgs-canvas/12.jpg', keywords: ['celeb', 'you'] },
-{ id: 13, url: './imgs/meme-imgs-canvas/13.jpg', keywords: ['celeb', 'movies'] },
-{ id: 14, url: './imgs/meme-imgs-canvas/14.jpg', keywords: ['celeb', 'movies'] },
-{ id: 15, url: './imgs/meme-imgs-canvas/15.jpg', keywords: ['celeb', 'movies'] }]
+var gImgs = [
+    { id: 1, url: './imgs/meme-imgs-canvas/1.jpg', keywords: ['funny', 'celeb'] },
+    { id: 2, url: './imgs/meme-imgs-canvas/2.jpg', keywords: ['dogs', 'cute', 'animals'] },
+    { id: 3, url: './imgs/meme-imgs-canvas/3.jpg', keywords: ['baby', 'dogs', 'animals'] },
+    { id: 4, url: './imgs/meme-imgs-canvas/4.jpg', keywords: ['funny', 'cat', 'animals'] },
+    { id: 5, url: './imgs/meme-imgs-canvas/5.jpg', keywords: ['baby', 'funny'] },
+    { id: 6, url: './imgs/meme-imgs-canvas/6.jpg', keywords: ['celeb', 'funny', 'movies'] },
+    { id: 7, url: './imgs/meme-imgs-canvas/7.jpg', keywords: ['baby', 'funny'] },
+    { id: 8, url: './imgs/meme-imgs-canvas/8.jpg', keywords: ['love'] },
+    { id: 9, url: './imgs/meme-imgs-canvas/9.jpg', keywords: ['baby', 'funny'] },
+    { id: 10, url: './imgs/meme-imgs-canvas/10.jpg', keywords: ['celeb', 'funny'] },
+    { id: 11, url: './imgs/meme-imgs-canvas/11.jpg', keywords: ['sport', 'funny'] },
+    { id: 12, url: './imgs/meme-imgs-canvas/12.jpg', keywords: ['celeb', 'you'] },
+    { id: 13, url: './imgs/meme-imgs-canvas/13.jpg', keywords: ['celeb', 'movies'] },
+    { id: 14, url: './imgs/meme-imgs-canvas/14.jpg', keywords: ['celeb', 'movies'] },
+    { id: 15, url: './imgs/meme-imgs-canvas/15.jpg', keywords: ['celeb', 'movies'] }]
 var gfirstY;
 var gfirstX;
 var gLineIdx;
@@ -80,7 +81,6 @@ function trash() {
     if (!gMeme.selectedLineIdx) return;
     gMeme.selectedLineIdx--;
 }
-
 
 function addLine() {
     var prevLine = gMeme.lines[gMeme.lines.length - 1];
@@ -158,8 +158,6 @@ function setFont(value) {
     renderMeme();
 }
 
-
-
 function drawRect() {
     var currMeme = gMeme.lines[gMeme.selectedLineIdx];
     if (!currMeme || !currMeme.txt) return
@@ -194,8 +192,13 @@ function setLineText(text) {
     gMeme.lines[gMeme.selectedLineIdx].txt = text;
 }
 
-function setImg(id) {
+function setImg(id,memeIdx) {
     gMeme.selectedImgId = id;
     setCanvasSize(id);
+    if (memeIdx) {
+        var myMemes = loadFromStorage('imgsDB');
+        gMeme.lines = myMemes[memeIdx].lines;
+        switchLine(true);
+    }
     renderMeme();
 }

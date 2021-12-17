@@ -19,7 +19,7 @@
                     <img class="img-logo" src="imgs/logo/logo.png" alt="">
                 </div>
                 <nav class="nav">
-                    <div class="my-meme" onclick="toggleGallery(this)">MyMeme</div>
+                    <div class="my-meme" onclick="renderMyMeme(this)"><span>MyMeme</span></div>
                     <hr>
                     <div class="gallery-nav active-nav" onclick="toggleGallery(this)">Gallery</div>
                     <hr>
@@ -116,6 +116,7 @@
                     <img class="icon-img" src="imgs/sergei/icons/arrow.png">
                 </button>
                 <button class="far share input-btn" onclick="toggleShareNav()"></button>
+                <button class="far save input-btn" onclick="saveImgToStorage()"></button>
                 <select name="fonts" id="fonts" onchange="setFont(this.value)">
                     <option value="impact">Impact</option>
                     <option value="ariel">Ariel</option>

@@ -283,6 +283,17 @@ header .active-nav {
     height: 100px;
 }
 
+header .hover-nav {
+    color: #040a2c;
+    box-shadow: inset 0px -2px #000000;
+    height: 100px;
+}
+
+header .nav a:hover {
+    color: #040a2c;
+}
+
+
 .layout {
     display: flex;
     width: 90%;
@@ -572,6 +583,12 @@ font-weight: bolder;
 cursor: pointer;
 }
 
+.save::before {
+    content: '\f0c7';
+    font-size: 4vw;
+    color: orange;
+}
+
 .datalist {
     background-color: rgb(255, 0, 0);
     height: 150px;
@@ -657,6 +674,7 @@ cursor: pointer;
         position: relative;
         right: -100%;
     }
+
     .nav>*:not(.hamburger) {
         position: absolute;
         z-index: -100;
@@ -695,7 +713,7 @@ cursor: pointer;
         background-color: orange;
         top:9.9%;
         right: 60px;
-        width: 150px;
+        width: 165px;
         display: flex;
         align-items: center;
         height: 50;
@@ -710,5 +728,14 @@ cursor: pointer;
     .nav>.show.gallery-nav {
         top: 15%;
         height: 50px;
+        display: flex;
+    }
+    .nav>.show.my-meme {
+        top: 20%;
+        height: 50px;
+        font-size: 30px;
+    }
+    .nav>.show.my-meme span {
+        transform: translateX(-13%);
     }
 }

@@ -77,6 +77,7 @@ function renderEditor() {
     document.querySelector('.meme-editor-container').classList.toggle('hide');
     document.querySelector('.search-container').classList.toggle('hide');
     document.querySelector('.gallery-nav').classList.remove('active-nav');
+    document.querySelector('.my-meme').classList.remove('active-nav');
 }
 
 function toggleShareNav() {
@@ -101,6 +102,7 @@ function toggleHeaderNav() {
         document.querySelector('.nav').classList.toggle('show');
         document.querySelector('.gallery-nav').classList.toggle('show');
         document.querySelector('.about-nav').classList.toggle('show');
+        document.querySelector('.my-meme').classList.toggle('show');
         document.querySelector('.main-screen-header').classList.toggle('menu-open');
     }
 }
@@ -123,27 +125,37 @@ function downloadImg(elLink) {
 
 function uploadImg() {
     const imgDataUrl = gCanvas.toDataURL();
-      function onSuccess(uploadedImgUrl) {
-      const encodedUploadedImgUrl = encodeURIComponent(uploadedImgUrl);
-      document.querySelector('.do-share').innerHTML = `<a class="btn fb-share" href="https://www.facebook.com/sharer/sharer.php?u=${encodedUploadedImgUrl}&t=${encodedUploadedImgUrl}" title="Share on Facebook" target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}'); return false;">Share On FaceBook!</a>`;
+    function onSuccess(uploadedImgUrl) {
+        const encodedUploadedImgUrl = encodeURIComponent(uploadedImgUrl);
+        document.querySelector('.do-share').innerHTML = `<a class="btn fb-share"
+       href="https://www.facebook.com/sharer/sharer.php?u=${encodedUploadedImgUrl}&t=${encodedUploadedImgUrl}" 
+       title="Share on Facebook" target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.
+       php?u=${uploadedImgUrl}&t=${uploadedImgUrl}'); return false;">Share On FaceBook!</a>`;
     }
     doUploadImg(imgDataUrl, onSuccess);
-  }
+}
 
 
 function doUploadImg(imgDataUrl, onSuccess) {
     const formData = new FormData();
     formData.append('img', imgDataUrl);
-    fetch('//ca-upload.com/here/upload.php', {
-      method: 'POST',
-      body: formData,
+    fetch('//ca-upload.com/here/upload.php', {  //That link is doing errors...
+        method: 'POST',
+        body: formData,
     })
-      .then((res) => res.text())
-      .then((url) => {
-        console.log('Got back live url:', url);
-        onSuccess(url);
-      })
-      .catch((err) => {
-      });
-  }
-  
+        .then((res) => res.text())
+        .then((url) => {
+            onSuccess(url);
+        })
+        .catch((err) => {
+        });
+}
+
+addEvents()
+function addEvents() {
+    var elements = document.querySelectorAll('.nav>*:not(hr,.hamburger)');
+    elements.forEach(element => {
+        element.addEventListener('mouseover',() => element.classList.add('hover-nav'));
+        element.addEventListener('mouseout',() =>  element.classList.remove('hover-nav'));
+    })
+}
