@@ -15,6 +15,9 @@ function onInit() {
     loadImgs();
     uploadImg();
     document.querySelector('#my-canvas');
+    gCanvas.addEventListener('mousedown',function(event) {
+        checkLines(event);
+    });
 }
 
 function setCanvasProps(height, width) {

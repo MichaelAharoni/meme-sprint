@@ -55,7 +55,7 @@ var gMeme = {
     selectedLineIdx: 0,
     lines: [
         {
-            txt: '',
+            txt: 'This Is A FaLaFel',
             size: 40,
             align: 'center',
             color: 'white',
@@ -63,9 +63,24 @@ var gMeme = {
             font: 'impact',
             x: null,
             y: null,
+            width: null,
+            heigth: null,
             id: 1
         },
     ]
+}
+
+function checkLines(ev) {
+    gMeme.lines.forEach((line ,idx)=> {
+        var lineY = line.y;
+        console.log('lineX' , line.x,'evX', ev.offsetX,'lineY', line.y,'evY', ev.offsetY);
+        if (ev.offsetX <= line.x && ev.offsetX >= line.x - line.width +25) {
+            if (ev.offsetY <= lineY + line.size && ev.offsetY >= lineY - line.size * 2) {
+                gMeme.selectedLineIdx = idx;
+                renderMeme();
+            }
+        }
+    })
 }
 
 function setMemeLinesPos() {
@@ -97,15 +112,12 @@ function addLine() {
         stColor: 'black',
         font: 'impact',
         x: prevLine.x,
-        y: prevLine.y + prevLine.size * 1.5,
+        y: gfirstY + prevLine.size,
         id: Math.floor(prevLine.id + 1)
     }
-    if (line.id === 2) {
-        line.y = gfirstY * 4;
-    }
-    else if (line.id === 3) {
-        line.y = gfirstY + prevLine.size * 1.5;
-    }
+    gfirstY += prevLine.size;
+    if (line.id === 2) line.y += 200;
+
     gMeme.lines.push(line);
     switchLine(true);
 }
@@ -174,6 +186,8 @@ function drawRect() {
     var xSize = sizing.clientWidth + 75;
     var ySize = sizing.clientHeight;
     gCtx.lineWidth = 5;
+    gMeme.lines[gMeme.selectedLineIdx].width = xSize - 75;
+    gMeme.lines[gMeme.selectedLineIdx].heigth = ySize * 0.8;
     gCtx.beginPath()
     gCtx.strokeStyle = 'white';
     gCtx.rect(x - xSize / 2, y - ySize / 2, xSize, ySize);
@@ -198,8 +212,6 @@ function setLineText(text) {
 }
 
 function setImg(id, memeIdx) {
-    // if (`number` !== typeof id) gMeme.selectedImgId = getImgs().length;
-    // else
      gMeme.selectedImgId = id;
      var imgs = getImgs();
      if (id === imgs.length) setCanvasSize(imgs[id -1].url)
@@ -232,4 +244,5 @@ function resetGmeme() {
             },
         ]
     }
+    renderMeme();
 }
