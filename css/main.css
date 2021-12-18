@@ -27,11 +27,6 @@ body {
     user-select: none;
 }
 
-.imgs-container {
-    display: grid;
-
-}
-
 .hide {
     position: absolute;
     top: -200%;
@@ -179,14 +174,43 @@ outline: none;
     gap: 2vw;
     padding-block-start: 2vw;
     padding-block-end: 2vw;
-    grid-template: repeat(auto-fill,minmax(200px, 20.5vw)) / repeat(auto-fill,minmax(200px,20.5vw));
+    grid-template: repeat(auto-fit,minmax(170px,20.5vw)) / repeat(auto-fill,minmax(170px,20.5vw));
 }
 .gallery-imgs img {
     border-radius: 10%;
     cursor: pointer;
-    height: inherit;
+    height:100%;
     width: inherit;
     transition: 0.5s;
+}
+
+.user-img {
+    display: inline-block;
+    border-radius: 10%;
+    cursor: pointer;
+    height: 100%;
+    width: 100%;
+    transition: 0.5s;
+    font-size: 4vw;
+    color: rgb(252, 241, 241);
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    text-shadow: 2px 0 0 rgb(19, 17, 17), -2px 0 0 rgb(10, 8, 8), 0 2px 0 rgb(19, 13, 13), 0 -2px 0 rgb(14, 9, 9), 1px 1px rgb(14, 12, 12), -1px -1px 0 rgb(12, 8, 8), 1px -1px 0 rgb(20, 18, 18), -1px 1px 0 rgb(17, 15, 15);
+    background-image:linear-gradient(to bottom right, white, rgb(155, 155, 160), gray , white , gray, white, gray, white , gray , white,gray,white,gray,white,gray,white,gray,white,gray,white,gray,white,gray,white);
+}
+
+.user-input {
+    height: 100%;
+    opacity: 0;
+    width: 100%;
+    z-index: 1;
+    position: absolute;
+}
+
+.user-input:hover + .user-img {
+    opacity: 70%;
+    width: 80%;
+    height: 80%;
+    transform: rotate(0.01turn) translate(10%,10%)
 }
 
 .gallery-imgs {
@@ -194,7 +218,7 @@ outline: none;
     width: 100%;
 }
 
-.gallery-imgs img:focus ,.gallery-imgs img:hover {
+.gallery-imgs img:focus ,.gallery-imgs img:hover,.gallery-imgs button:focus ,.gallery-imgs button:hover {
     opacity: 70%;
     width: 80%;
     height: 80%;
@@ -561,6 +585,11 @@ margin-left: 7vw;
     margin-block-start: 2px;
     height: 75%;
 }
+
+.padding {
+    padding-block-start: 100px;
+}
+
 .share-nav {
     display: flex;
     position: fixed;
@@ -614,6 +643,10 @@ cursor: pointer;
     z-index: 1;
 }
 
+.input-container {
+    position: relative;
+}
+
 @media screen and (max-width: 780px) {
     .layout.editor {
         flex-direction: column;
@@ -635,6 +668,7 @@ cursor: pointer;
         width: 76vw;
         height: 10vw;
     }
+  
     .arrow-bottom, .arrow-top {
         position: relative;
         right: -10%;

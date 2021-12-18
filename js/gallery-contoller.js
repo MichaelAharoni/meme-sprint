@@ -2,14 +2,14 @@
 var imgs = getImgs();
 
 function renderGallery(keyword) {
-    var strHTML = ``;
+    var strHTML = `<div class="gallery-imgs input-container img${0}"><input type="file" onchange="onImgInput(event)" class="user-input"><button class="user-img">Upload Image</button></input></div>`;
     for (let i = 1; i <= imgs.length; i++) {
-        strHTML += `<div class="gallery-imgs img${i}"onclick="setImg(${i})" data-img="${i}"><img src="./imgs/meme-imgs (square)/${i}.jpg"></div>`;
+        strHTML += `<div class="gallery-imgs img${i}"onclick="setImg(${i})"><img src="./imgs/meme-imgs (square)/${i}.jpg"></div>`;
     }
     if (keyword) {
         strHTML = ``;
         for (let i = 1; i <= imgs.length; i++) {
-            if (imgs[i - 1].keywords.includes(keyword)) strHTML += `<div class="gallery-imgs img${i}"onclick="setImg(${i})" data-img="${i}"><img src="./imgs/meme-imgs (square)/${i}.jpg"></div>`;
+            if (imgs[i - 1].keywords.includes(keyword)) strHTML += `<div class="gallery-imgs img${i}"onclick="setImg(${i})"><img src="./imgs/meme-imgs (square)/${i}.jpg"></div>`;
         }
     }
     document.querySelector('.imgs-container').innerHTML = strHTML;
@@ -17,6 +17,7 @@ function renderGallery(keyword) {
 
 function toggleGallery(elment) {
     elment.classList.add('active-nav');
+    document.querySelector('.imgs-layout').classList.remove('padding');
     document.querySelector('.my-meme').classList.remove('active-nav');
     document.querySelector('.imgs-layout').classList.remove('hide');
     document.querySelector('.meme-editor-container').classList.add('hide');
@@ -26,7 +27,8 @@ function toggleGallery(elment) {
 }
 function setCanvasSize(id) {
     var elDiv = document.querySelector('.sizing2');
-    elDiv.innerHTML = `<img class="sizing3" src="./imgs/meme-imgs-canvas/${id}.jpg"}">`;
+    if (`number` !== typeof id) elDiv.innerHTML = `<img class="sizing3" src="${id}"}">`;
+    else elDiv.innerHTML = `<img class="sizing3" src="./imgs/meme-imgs-canvas/${id}.jpg"}">`;
     var elImg = document.querySelector('.sizing3');
     setTimeout(function () {
         var height = elImg.clientHeight;
@@ -41,7 +43,12 @@ function setCanvasSize(id) {
 function renderMyMeme(element) {
     toggleHeaderNav();
     element.classList.add('active-nav');
+    document.querySelector('.imgs-layout').classList.remove('hide');
+    document.querySelector('.imgs-layout').classList.add('padding');
     document.querySelector('.gallery-nav').classList.remove('active-nav');
+    document.querySelector('.meme-editor-container').classList.add('hide');
+    document.querySelector('.search-container').classList.add('hide');
+    
     var myMemes = loadFromStorage('imgsDB');
     var strHTML = ``;
     if (!myMemes) return document.querySelector('.imgs-container').innerHTML = strHTML;

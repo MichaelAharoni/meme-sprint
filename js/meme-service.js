@@ -115,7 +115,8 @@ function switchLine(newLine) {
 }
 
 function getCurrImg(id) {
-    var currImg = gImgs.find(img => img.id === id)
+    var currImg = gImgs.find(img => img.id === id);
+    if (!currImg) return id;
     return currImg.url;
 }
 
@@ -193,6 +194,7 @@ function setLineText(text) {
 }
 
 function setImg(id,memeIdx) {
+    if (`number` !== typeof id) gMeme.selectedImgId = getImgs().length;
     gMeme.selectedImgId = id;
     setCanvasSize(id);
     if (memeIdx) {

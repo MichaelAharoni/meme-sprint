@@ -49,6 +49,7 @@ function renderText() {
 function renderImg() {
     var currMeme = getMeme();
     var currImg = getCurrImg(currMeme.selectedImgId);
+    if (currMeme.selectedImgId === getImgs().length) currImg = loadFromStorage('userImg');
     var img = new Image();
     img.src = currImg;
     img.onload = () => {
@@ -73,9 +74,10 @@ function setInputTxt() {
 }
 
 function renderEditor() {
-    document.querySelector('.imgs-layout').classList.toggle('hide');
-    document.querySelector('.meme-editor-container').classList.toggle('hide');
-    document.querySelector('.search-container').classList.toggle('hide');
+    document.querySelector('.imgs-layout').classList.add('hide');
+    document.querySelector('.imgs-layout').classList.remove('padding');
+    document.querySelector('.meme-editor-container').classList.remove('hide');
+    document.querySelector('.search-container').classList.add('hide');
     document.querySelector('.gallery-nav').classList.remove('active-nav');
     document.querySelector('.my-meme').classList.remove('active-nav');
 }
