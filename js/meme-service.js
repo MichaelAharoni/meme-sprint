@@ -119,7 +119,7 @@ function addLine() {
     if (!prevLine) prevLine = { x: gfirstX, y: gfirstY, id: 1 }
     var line = {
         txt: 'This Is A FaLaFel',
-        size: 50,
+        size: 40,
         align: 'center',
         color: 'white',
         stColor: 'black',
