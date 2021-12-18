@@ -55,7 +55,7 @@ var gMeme = {
     selectedLineIdx: 0,
     lines: [
         {
-            txt: 'This Is A FaLaFel',
+            txt: 'I LoVe FalAfEL',
             size: 40,
             align: 'center',
             color: 'white',
@@ -67,15 +67,26 @@ var gMeme = {
             heigth: null,
             id: 1
         },
+        {
+            txt: 'TwiCe A WEEk',
+            size: 40,
+            align: 'center',
+            color: 'white',
+            stColor: 'black',
+            font: 'impact',
+            x: null,
+            y: null,
+            width: null,
+            heigth: null,
+            id: 2
+        },
     ]
 }
 
 function checkLines(ev) {
     gMeme.lines.forEach((line ,idx)=> {
-        var lineY = line.y;
-        console.log('lineX' , line.x,'evX', ev.offsetX,'lineY', line.y,'evY', ev.offsetY);
         if (ev.offsetX <= line.x && ev.offsetX >= line.x - line.width +25) {
-            if (ev.offsetY <= lineY + line.size && ev.offsetY >= lineY - line.size * 2) {
+            if (ev.offsetY <= line.y && ev.offsetY >= line.y - line.heigth) {
                 gMeme.selectedLineIdx = idx;
                 renderMeme();
             }
@@ -87,6 +98,8 @@ function setMemeLinesPos() {
     var { x, y } = getLinesFirstPos();
     gMeme.lines[0].x = x;
     gMeme.lines[0].y = y;
+    gMeme.lines[1].x = x;
+    gMeme.lines[1].y = y*4;
     gfirstX = x;
     gfirstY = y;
 }
@@ -112,12 +125,15 @@ function addLine() {
         stColor: 'black',
         font: 'impact',
         x: prevLine.x,
-        y: gfirstY + prevLine.size,
+        y: prevLine.y + prevLine.size * 1.5,
         id: Math.floor(prevLine.id + 1)
     }
-    gfirstY += prevLine.size;
-    if (line.id === 2) line.y += 200;
-
+    if (line.id === 2) {
+        line.y = gfirstY * 4;
+    }
+    else if (line.id === 3) {
+        line.y = gfirstY + prevLine.size * 1.5;
+    }
     gMeme.lines.push(line);
     switchLine(true);
 }
@@ -187,7 +203,7 @@ function drawRect() {
     var ySize = sizing.clientHeight;
     gCtx.lineWidth = 5;
     gMeme.lines[gMeme.selectedLineIdx].width = xSize - 75;
-    gMeme.lines[gMeme.selectedLineIdx].heigth = ySize * 0.8;
+    gMeme.lines[gMeme.selectedLineIdx].heigth = ySize;
     gCtx.beginPath()
     gCtx.strokeStyle = 'white';
     gCtx.rect(x - xSize / 2, y - ySize / 2, xSize, ySize);
@@ -219,7 +235,6 @@ function setImg(id, memeIdx) {
     if (`number` === typeof memeIdx) {
         var myMemes = loadFromStorage('imgsDB');
         gMeme.lines = myMemes[memeIdx].lines;
-        console.log(myMemes[memeIdx].lines);
         switchLine(true);
     }
     renderMeme();
@@ -232,17 +247,31 @@ function resetGmeme() {
         selectedLineIdx: 0,
         lines: [
             {
-                txt: '',
-                size: 40,
-                align: 'center',
-                color: 'white',
-                stColor: 'black',
-                font: 'impact',
-                x: null,
-                y: null,
-                id: 1
-            },
+            txt: 'I LoVe FalAfEL',
+            size: 40,
+            align: 'center',
+            color: 'white',
+            stColor: 'black',
+            font: 'impact',
+            x: null,
+            y: null,
+            width: null,
+            heigth: null,
+            id: 1
+        },
+        {
+            txt: 'TwiCe A WEEk',
+            size: 40,
+            align: 'center',
+            color: 'white',
+            stColor: 'black',
+            font: 'impact',
+            x: null,
+            y: null,
+            width: null,
+            heigth: null,
+            id: 2
+        },
         ]
     }
-    renderMeme();
 }

@@ -64,6 +64,7 @@ function renderImg() {
         drawRect();
     };
 }
+
 function loadImgs() {
     var imgs = getImgs();
     var elHelper = document.querySelector('.sizing');

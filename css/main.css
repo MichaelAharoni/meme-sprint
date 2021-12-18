@@ -174,7 +174,7 @@ outline: none;
     gap: 2vw;
     padding-block-start: 2vw;
     padding-block-end: 2vw;
-    grid-template: repeat(auto-fit,minmax(170px,20.5vw)) / repeat(auto-fill,minmax(170px,20.5vw));
+    grid-template: repeat(auto-fit,minmax(150px,20.5vw)) / repeat(auto-fill,minmax(150px,20.5vw));
 }
 .gallery-imgs img {
     border-radius: 10%;
@@ -761,18 +761,23 @@ cursor: pointer;
         font-size: 30px;
     }
     .nav>.show.about-nav {
-        top: 10%;
+        top: 18%;
         height: 50px;
+        font-size: 20px;
+        padding-inline-start: 50px;
     }
     .nav>.show.gallery-nav {
-        top: 15%;
+        top: 27%;
         height: 50px;
         display: flex;
+        font-size: 20px;
+        padding-inline-start: 50px;
     }
     .nav>.show.my-meme {
-        top: 20%;
+        top: 36%;
         height: 50px;
-        font-size: 30px;
+        font-size: 20px;
+        padding-inline-start: 50px;
     }
     .nav>.show.my-meme span {
         transform: translateX(-13%);
