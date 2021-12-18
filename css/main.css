@@ -18,8 +18,13 @@
 }
 
 body {
+    height: 150vh;
+}
+
+body {
     margin: 0;
     padding: 0;
+    height: 100%;
     font-family: 'Montserrat';
     -moz-user-select: none;
     -webkit-user-select: none;
@@ -29,7 +34,7 @@ body {
 
 .hide {
     position: absolute;
-    top: -200%;
+    top: -900%;
 opacity: 0;
 z-index: -10;
 pointer-events: none;
