@@ -5,6 +5,10 @@ var gFillColor = 'white';
 var gToggleShare = true;
 
 function onInit() {
+    var imgs = loadFromStorage('gImgsDB');
+    if (imgs) {
+        updateGimgs(...imgs);
+    }
     gCanvas = document.querySelector('#my-canvas');
     gCtx = gCanvas.getContext('2d');
     renderGallery();
@@ -119,6 +123,7 @@ function pureCanvas() {
 
 function downloadImg(elLink) {
     const data = gCanvas.toDataURL('img/jpeg');
+    console.log(data);
     elLink.href = data;
     elLink.download = 'my-canvas';
     saveImg();

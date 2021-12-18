@@ -30,7 +30,6 @@ function saveImg(img) {
     var memes = getMeme();
     var imgIdx = memes.selectedImgId;
     var lines = memes.lines;
-    console.log(imgIdx,lines.length);
     if (imgs.length === 6) imgs.pop();
     imgs.unshift({img,imgIdx,lines});
     saveToStorage('imgsDB', imgs);
@@ -45,16 +44,17 @@ function loadImageFromInput(ev, onImageReady) {
     var reader = new FileReader()
     reader.onload = (event) => {
         var img = new Image()
-        // Render on canvas
         img.onload = onImageReady.bind(null, img)
         img.src = event.target.result;
-        setImg(img.src);
+        var imgs = getImgs();
         saveToStorage('userImg',img.src);
+        var userImg = { id: imgs.length, url:img.src, keywords: [] };
+        updateGimgs(userImg);
+        setImg(imgs.length);
+        var imgsDB = loadFromStorage('gImgsDB');
+        if (imgsDB) imgsDB.push(userImg);
+        else imgsDB = [userImg]
+        saveToStorage('gImgsDB', imgsDB);
     }
     reader.readAsDataURL(ev.target.files[0]);
-    renderEditor();
 }
-
-// function renderUserImg(img) {
-//     gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height);
-// }

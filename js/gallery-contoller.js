@@ -2,6 +2,7 @@
 var imgs = getImgs();
 
 function renderGallery(keyword) {
+    resetGmeme();
     var strHTML = `<div class="gallery-imgs input-container img${0}"><input type="file" onchange="onImgInput(event)" class="user-input"><button class="user-img">Upload Image</button></input></div>`;
     for (let i = 1; i <= imgs.length; i++) {
         strHTML += `<div class="gallery-imgs img${i}"onclick="setImg(${i})"><img src="./imgs/meme-imgs (square)/${i}.jpg"></div>`;
@@ -41,6 +42,7 @@ function setCanvasSize(id) {
 }
 
 function renderMyMeme(element) {
+    resetGmeme();
     toggleHeaderNav();
     element.classList.add('active-nav');
     document.querySelector('.imgs-layout').classList.remove('hide');

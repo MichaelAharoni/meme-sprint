@@ -20,6 +20,10 @@ var gfirstX;
 var gLineIdx;
 var gKeywordSearchCountMap = objectMap();
 
+function updateGimgs(img) {
+    gImgs.push(img)
+}
+
 function getKeyWords() {
     return gKeywordSearchCountMap;
 }
@@ -74,7 +78,7 @@ function setMemeLinesPos() {
 
 function trash() {
     if (!gMeme.lines.length) return
-    var shure = confirm('Are you shure ?');
+    var shure = confirm('Are you sure ?');
     if (!shure) return;
     gMeme.lines.splice(gMeme.selectedLineIdx, 1);
     renderMeme();
@@ -193,14 +197,39 @@ function setLineText(text) {
     gMeme.lines[gMeme.selectedLineIdx].txt = text;
 }
 
-function setImg(id,memeIdx) {
-    if (`number` !== typeof id) gMeme.selectedImgId = getImgs().length;
-    gMeme.selectedImgId = id;
-    setCanvasSize(id);
-    if (memeIdx) {
+function setImg(id, memeIdx) {
+    // if (`number` !== typeof id) gMeme.selectedImgId = getImgs().length;
+    // else
+     gMeme.selectedImgId = id;
+     var imgs = getImgs();
+     if (id === imgs.length) setCanvasSize(imgs[id -1].url)
+     else setCanvasSize(id);
+    if (`number` === typeof memeIdx) {
         var myMemes = loadFromStorage('imgsDB');
         gMeme.lines = myMemes[memeIdx].lines;
+        console.log(myMemes[memeIdx].lines);
         switchLine(true);
     }
     renderMeme();
+}
+
+function resetGmeme() {
+    gMeme =
+    {
+        selectedImgId: 1,
+        selectedLineIdx: 0,
+        lines: [
+            {
+                txt: '',
+                size: 40,
+                align: 'center',
+                color: 'white',
+                stColor: 'black',
+                font: 'impact',
+                x: null,
+                y: null,
+                id: 1
+            },
+        ]
+    }
 }
