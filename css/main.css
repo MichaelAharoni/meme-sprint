@@ -184,7 +184,7 @@ outline: none;
 .gallery-imgs img {
     border-radius: 10%;
     cursor: pointer;
-    height:100%;
+    height:20.5vw;
     width: inherit;
     transition: 0.5s;
 }
@@ -209,6 +209,7 @@ outline: none;
     width: 100%;
     z-index: 1;
     position: absolute;
+    cursor: pointer;
 }
 
 .user-input:hover + .user-img {
@@ -429,6 +430,13 @@ outline: none;
 canvas {
     display: block;
     max-width: 40vw;
+    transition: 0.2s;
+}
+
+canvas.fade {
+    opacity: 0;
+    color: blanchedalmond;
+    background-color: rgb(255, 255, 255);
 }
 
 .sizing2 {
@@ -661,9 +669,7 @@ cursor: pointer;
         font-size: 4vw;
         right: 20%;
     }
-    canvas {
-        max-width: 80vw;
-    }
+
     .btns-container {
         margin-top: 20px;
     width: 80vw;

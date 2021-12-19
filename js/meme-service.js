@@ -1,4 +1,5 @@
 'use strict'
+var gNextId = 3;
 var gImgs = [
     { id: 1, url: './imgs/meme-imgs-canvas/1.jpg', keywords: ['funny', 'celeb'] },
     { id: 2, url: './imgs/meme-imgs-canvas/2.jpg', keywords: ['dogs', 'cute', 'animals'] },
@@ -19,6 +20,14 @@ var gfirstY;
 var gfirstX;
 var gLineIdx;
 var gKeywordSearchCountMap = objectMap();
+
+function updateLinesPos() {
+    for (var i = 0; i < gMeme.lines.length; i++) {
+        gMeme.lines[i].x = gCanvas.getBoundingClientRect().width / 2 + gMeme.lines[i].changeX;
+        gMeme.lines[i].y = gCanvas.getBoundingClientRect().height / 5 + (gMeme.lines[i].size * i) + gMeme.lines[i].changeY;
+        if (i == 1) gMeme.lines[i].y = gCanvas.getBoundingClientRect().height / 5 * 4 + gMeme.lines[i].changeY;
+    }
+}
 
 function updateGimgs(img) {
     gImgs.push(img)
@@ -64,7 +73,9 @@ var gMeme = {
             x: null,
             y: null,
             width: null,
-            heigth: null,
+            height: null,
+            changeX: 0,
+            changeY: 0,
             id: 1
         },
         {
@@ -77,21 +88,39 @@ var gMeme = {
             x: null,
             y: null,
             width: null,
-            heigth: null,
+            height: null,
+            changeX: 0,
+            changeY: 0,
             id: 2
         },
     ]
 }
 
 function checkLines(ev) {
-    gMeme.lines.forEach((line ,idx)=> {
-        if (ev.offsetX <= line.x && ev.offsetX >= line.x - line.width +25) {
-            if (ev.offsetY <= line.y && ev.offsetY >= line.y - line.heigth) {
-                gMeme.selectedLineIdx = idx;
-                renderMeme();
-            }
-        }
-    })
+    var ratioW = gCanvas.width / gCanvas.getBoundingClientRect().width;
+    var ratioH = gCanvas.height / gCanvas.getBoundingClientRect().height;
+    var foundLine = false;
+    gMeme.lines.forEach((line, idx) => {
+        // if (idx === 1)  {
+        //     console.log(ev.offsetX + 'ssss' + line.x + line.width / 2 / ratioW);
+        //     gMeme.selectedLineIdx = idx;
+        //      renderMeme();
+        //     // console.log(ev.offsetY);
+        //     // console.log(line.y + line.size / 2 / ratioH);
+        //     // console.log(line.y - line.size / 2 / ratioH);
+        // }
+        if ((ev.offsetX <= line.x + line.width / 2 / ratioW && ev.offsetX >= line.x - line.width / 2 / ratioW) &&
+         (ev.offsetY <= line.y + line.size / 2 / ratioH && ev.offsetY >= line.y - line.size / 2 / ratioH)) {
+            console.log(idx);
+            gMeme.selectedLineIdx = idx;
+             renderMeme();
+             foundLine = true;
+         }
+         if (!foundLine) {
+             gMeme.selectedLineIdx = -1;
+            renderMeme();
+         } 
+})
 }
 
 function setMemeLinesPos() {
@@ -99,9 +128,11 @@ function setMemeLinesPos() {
     gMeme.lines[0].x = x;
     gMeme.lines[0].y = y;
     gMeme.lines[1].x = x;
-    gMeme.lines[1].y = y*4;
+    gMeme.lines[1].y = y * 4;
     gfirstX = x;
     gfirstY = y;
+    updateLinesPos();
+    switchLine();
 }
 
 function trash() {
@@ -115,8 +146,8 @@ function trash() {
 }
 
 function addLine() {
-    var prevLine = gMeme.lines[gMeme.lines.length - 1];
-    if (!prevLine) prevLine = { x: gfirstX, y: gfirstY, id: 1 }
+    var firstLine = gMeme.lines[0];
+    if (!firstLine) firstLine = { x: gfirstX, y: gfirstY, id: 1 }
     var line = {
         txt: 'This Is A FaLaFel',
         size: 40,
@@ -124,16 +155,15 @@ function addLine() {
         color: 'white',
         stColor: 'black',
         font: 'impact',
-        x: prevLine.x,
-        y: prevLine.y + prevLine.size * 1.5,
-        id: Math.floor(prevLine.id + 1)
+        x: gfirstX,
+        y: gfirstY + (gMeme.lines.length -1) * 40,
+        width: null,
+        height: null,
+        changeX: 0,
+        changeY: 0,
+        id: gNextId
     }
-    if (line.id === 2) {
-        line.y = gfirstY * 4;
-    }
-    else if (line.id === 3) {
-        line.y = gfirstY + prevLine.size * 1.5;
-    }
+    gNextId++;
     gMeme.lines.push(line);
     switchLine(true);
 }
@@ -177,12 +207,12 @@ function setFontSize(size) {
 }
 
 function changeX(value) {
-    gMeme.lines[gMeme.selectedLineIdx].x += +value;
+    gMeme.lines[gMeme.selectedLineIdx].changeX += +value;
     renderMeme();
 }
 
 function changeY(value) {
-    gMeme.lines[gMeme.selectedLineIdx].y += +value;
+    gMeme.lines[gMeme.selectedLineIdx].changeY += +value;
     renderMeme();
 }
 
@@ -194,19 +224,21 @@ function setFont(value) {
 function drawRect() {
     var currMeme = gMeme.lines[gMeme.selectedLineIdx];
     if (!currMeme || !currMeme.txt) return
-    var x = currMeme.x;
-    var y = currMeme.y;
+    var x = currMeme.x + currMeme.changeX;
+    var y = currMeme.y + currMeme.changeY;
     var sizing = document.querySelector('.sizing');
     sizing.innerText = currMeme.txt;
     sizing.style.fontSize = currMeme.size + 'px'
-    var xSize = sizing.clientWidth + 75;
+    var xSize = sizing.clientWidth;
     var ySize = sizing.clientHeight;
+    gMeme.lines[gMeme.selectedLineIdx].width = xSize;
+    gMeme.lines[gMeme.selectedLineIdx].height = ySize;
+    var ratioW = gCanvas.width / gCanvas.getBoundingClientRect().width;
+    var ratioH = gCanvas.height / gCanvas.getBoundingClientRect().height;
     gCtx.lineWidth = 5;
-    gMeme.lines[gMeme.selectedLineIdx].width = xSize - 75;
-    gMeme.lines[gMeme.selectedLineIdx].heigth = ySize;
     gCtx.beginPath()
     gCtx.strokeStyle = 'white';
-    gCtx.rect(x - xSize / 2, y - ySize / 2, xSize, ySize);
+    gCtx.rect(x * ratioW - xSize / 2, y * ratioH - ySize / 2, xSize, ySize);
     gCtx.stroke();
     gCtx.closePath();
 }
@@ -218,8 +250,10 @@ function drawText(txt, x, y, size, align, color, stColor, font) {
     gCtx.strokeStyle = stColor;
     gCtx.font = `${size}px ${font}`;
     gCtx.fillStyle = color;
-    gCtx.fillText(txt, x, y);
-    gCtx.strokeText(txt, x, y);
+    var ratioW = gCanvas.width / gCanvas.getBoundingClientRect().width;
+    var ratioH = gCanvas.height / gCanvas.getBoundingClientRect().height;
+    gCtx.fillText(txt, x * ratioW, y * ratioH);
+    gCtx.strokeText(txt, x * ratioW, y * ratioH);
 }
 
 function setLineText(text) {
@@ -228,12 +262,15 @@ function setLineText(text) {
 }
 
 function setImg(id, memeIdx) {
-     gMeme.selectedImgId = id;
-     var imgs = getImgs();
-     if (id === imgs.length) setCanvasSize(imgs[id -1].url)
-     else setCanvasSize(id);
+    gMeme.selectedImgId = id;
+    var imgs = getImgs();
+    if (id >= imgs.length) {
+        setCanvasSize(imgs[id - 1].url)
+    }
+    else setCanvasSize(id);
     if (`number` === typeof memeIdx) {
-        var myMemes = loadFromStorage('imgsDB');
+        var myMemes = loadFromStorage('imgsDB')[memeIdx];
+        console.log(id,myMemes);
         gMeme.lines = myMemes[memeIdx].lines;
         switchLine(true);
     }
@@ -247,31 +284,35 @@ function resetGmeme() {
         selectedLineIdx: 0,
         lines: [
             {
-            txt: 'I LoVe FalAfEL',
-            size: 40,
-            align: 'center',
-            color: 'white',
-            stColor: 'black',
-            font: 'impact',
-            x: null,
-            y: null,
-            width: null,
-            heigth: null,
-            id: 1
-        },
-        {
-            txt: 'TwiCe A WEEk',
-            size: 40,
-            align: 'center',
-            color: 'white',
-            stColor: 'black',
-            font: 'impact',
-            x: null,
-            y: null,
-            width: null,
-            heigth: null,
-            id: 2
-        },
+                txt: 'I LoVe FalAfEL',
+                size: 40,
+                align: 'center',
+                color: 'white',
+                stColor: 'black',
+                font: 'impact',
+                x: null,
+                y: null,
+                width: null,
+                height: null,
+                changeX: 0,
+                changeY: 0,
+                id: 1
+            },
+            {
+                txt: 'TwiCe A WEEk',
+                size: 40,
+                align: 'center',
+                color: 'white',
+                stColor: 'black',
+                font: 'impact',
+                x: null,
+                y: null,
+                width: null,
+                height: null,
+                changeX: 0,
+                changeY: 0,
+                id: 2
+            },
         ]
     }
 }

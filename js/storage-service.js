@@ -25,6 +25,10 @@ function saveImgToStorage() {
 }
 
 function saveImg(img) {
+    var canvas = getCanvas();
+    canvas.classList.add('fade');
+    console.log(canvas);
+    setTimeout(() => canvas.classList.remove('fade'),500);
     var imgs = loadFromStorage('imgsDB');
     if (!imgs || !imgs.length) imgs = [];
     var memes = getMeme();

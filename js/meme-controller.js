@@ -14,8 +14,10 @@ function onInit() {
     renderGallery();
     loadImgs();
     uploadImg();
+    updateLinesPos()
     document.querySelector('#my-canvas');
-    gCanvas.addEventListener('mousedown',function(event) {
+    window.addEventListener('resize', updateLinesPos);
+    gCanvas.addEventListener('mousedown', function (event) {
         checkLines(event);
     });
 }
@@ -31,7 +33,10 @@ function getCanvas() {
 
 
 function getLinesFirstPos() {
-    return { x: gCanvas.width / 2, y: gCanvas.height / 5 };
+    return {
+        x: gCanvas.getBoundingClientRect().width / 2,
+        y: gCanvas.getBoundingClientRect().height / 5,
+    };
 }
 
 function renderMeme() {
@@ -48,7 +53,7 @@ function getText(input) {
 function renderText() {
     var currMeme = getMeme();
     currMeme.lines.forEach(function (line) {
-        drawText(line.txt, line.x, line.y, line.size, line.align, line.color, line.stColor, line.font, line.id);
+        drawText(line.txt, line.x + line.changeX, line.y + line.changeY, line.size, line.align, line.color, line.stColor, line.font, line.id);
     })
 }
 
@@ -166,7 +171,7 @@ addEvents()
 function addEvents() {
     var elements = document.querySelectorAll('.nav>*:not(hr,.hamburger)');
     elements.forEach(element => {
-        element.addEventListener('mouseover',() => element.classList.add('hover-nav'));
-        element.addEventListener('mouseout',() =>  element.classList.remove('hover-nav'));
+        element.addEventListener('mouseover', () => element.classList.add('hover-nav'));
+        element.addEventListener('mouseout', () => element.classList.remove('hover-nav'));
     })
 }

@@ -14,6 +14,7 @@ function renderGallery(keyword) {
         }
     }
     document.querySelector('.imgs-container').innerHTML = strHTML;
+    window.scrollTo(0, 0);
 }
 
 function toggleGallery(elment) {
@@ -26,6 +27,7 @@ function toggleGallery(elment) {
     renderGallery();
     toggleHeaderNav();
 }
+
 function setCanvasSize(id) {
     var elDiv = document.querySelector('.sizing2');
     if (`number` !== typeof id) elDiv.innerHTML = `<img class="sizing3" src="${id}"}">`;
@@ -58,4 +60,6 @@ function renderMyMeme(element) {
         strHTML += `<div class="gallery-imgs img${i}"onclick="setImg(${myMemes[i].imgIdx},${i})"><img src="${myMemes[i].img}"}"></div>`;
     }
     document.querySelector('.imgs-container').innerHTML = strHTML;
-}
+    window.scrollTo(0, 0);
+} 
+
